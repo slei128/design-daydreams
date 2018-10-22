@@ -1,5 +1,5 @@
 link(href='/designdaydreams.css', rel='stylesheet')
-img(src="https://cdn1-www.dogtime.com/assets/uploads/gallery/pug-dog-breed-pictures/2-face.jpg",id="content")
+img(src="https://pathways-imgserver.herokuapp.com/source/ddds.jpg",id="content")
 script(type='text/javascript').
 	function poll(){
 		const Http=new XMLHttpRequest();
@@ -53,7 +53,7 @@ script(type='text/javascript').
 		setCookie("id", idVal);
 		window.deviceId = idVal;
 	}
-	
+
 	var Http=new XMLHttpRequest();
 	var url='https://pathways-imgserver.herokuapp.com/deviceRegistration';
 	Http.open('POST',url);

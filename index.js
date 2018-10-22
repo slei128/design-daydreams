@@ -49,7 +49,7 @@ app.get('/device', (req, res) => {
 //when device page loaded, sends deviceId to server and is saved here
 app.post('/deviceRegistration', (req, res) =>{
 	var deviceId = req.body["deviceId"]
-	var content = "https://www.hakaimagazine.com/wp-content/uploads/header-humpbacks-and-grays.jpg"
+	var content = "https://pathways-imgserver.herokuapp.com/source/ddds.jpg"
 	global.deviceList.push({"id":deviceId,"content":content})
 	res.sendStatus(200)
 });
