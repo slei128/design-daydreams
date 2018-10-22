@@ -1,0 +1,101 @@
+body {
+	background-color: #1A1A1A;
+   	background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Exo', Georgia, serif;
+	font-size: 16px;  
+}
+
+#home-button {
+	/*position: absolute;*/
+	top: 15;
+	left: 15;
+}
+
+#home-button:hover {
+    opacity:0.5;
+}
+
+.main {
+	font-family: 'Lora', Georgia, serif;
+	/*font-size: 40px;*/
+    font-size:3vw;
+	color: #FFF;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	right: 0;
+    top: 28vh;
+    /*top: 300px;*/
+}
+
+.column_left {
+    float: left;
+    padding-left: 28%;
+    text-align: left;
+}
+
+.column_right {
+    float: right;
+    padding-right: 25%;
+    text-align: right;
+}
+
+.question {
+  	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+    float: left;
+    width: 20%;
+    padding: 10px;
+}
+
+.question:hover {
+	font-style: italic;
+}
+
+/* unvisited link */
+a:link {
+    font-style: normal;
+    color: #FFF;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    font-style: normal;
+    color: #FFF;
+    text-decoration: none;
+
+}
+
+/* mouse over link */
+a:hover {
+    font-style: italic;
+    color: #FFF;
+    text-decoration: none;
+
+}
+
+/* selected link */
+a:active {
+    font-style: normal;
+    color: #FFF;
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+img[name=VCRImage]:hover
+{
+  cursor:pointer;
+}
+
+
+span#print{
+    background-color:#a9e2f9;
+    padding:5px;
+}
