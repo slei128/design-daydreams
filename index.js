@@ -88,8 +88,6 @@ let changes = 0; //counter for how many changes there are
 
 app.post('/control', (req, res) => {
 	//read message from controller
-	//parse message into folder name
-	var type = req.body["contenttype"]
 	//for each device, pick a random image from contentFolder selected
 	let deviceIdx = changes%(global.deviceList.length);
 	global.deviceList[deviceIdx]['content'] = req.body.url;
