@@ -46,9 +46,9 @@ script(type='text/javascript').
 		return cookieValue;
 	}
 
-	if(getCookie("id")!==null){
-		window.deviceId = getCookie("id");
-	} else {
+	window.deviceId = getCookie("id");
+
+	if(!window.deviceId){
 		const idVal = deviceIdGenerator();
 		setCookie("id", idVal);
 		window.deviceId = idVal;
