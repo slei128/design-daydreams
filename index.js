@@ -66,14 +66,15 @@ app.post('/poll', (req, res) => {
 	var requestingDeviceId = req.body["deviceId"]
 
 	global.deviceList.forEach(function(element, index, theArray) {
-		console.log(element)
+		// console.log(element)
 		if(element['id'].localeCompare(requestingDeviceId)==0) {
 			res.send(element['content'])
 			return
 		}
 	})
 
-	console.log(req.body)
+	// console.log(req.body)
+	console.log('devices', global.deviceList);
 	//populate deviceList array
 	//check if device is on list
 	//if not on list add it
@@ -89,7 +90,6 @@ app.post('/control', (req, res) => {
 	//read message from controller
 	//parse message into folder name
 	var type = req.body["contenttype"]
-	console.log('devices', global.deviceList);
 	//for each device, pick a random image from contentFolder selected
 	let deviceIdx = changes%(global.deviceList.length);
 	global.deviceList[deviceIdx]['content'] = req.body.url;
