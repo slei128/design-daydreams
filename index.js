@@ -87,11 +87,9 @@ app.post('/poll', (req, res) => {
 let changes = 0; //counter for how many changes there are
 
 app.post('/control', (req, res) => {
-	//read message from controller
-	//for each device, pick a random image from contentFolder selected
-	changes++;
 	let deviceIdx = changes%(global.deviceList.length);
 	global.deviceList[deviceIdx]['content'] = req.body.url;
+	changes++;
 	res.sendStatus(200)
 });
 
