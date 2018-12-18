@@ -57,10 +57,6 @@ app.post('/deviceRegistration', (req, res) =>{
 //pug template then runs this code
 app.post('/poll', (req, res) => {
 	var contentFolder = global.content
-	//read contents of folder selected by controller
-	// fs.readdirSync(contentFolder).forEach(content => {
-	//   console.log(content)
-	// })
 
 	var device = null
 	var requestingDeviceId = req.body["deviceId"]
@@ -73,7 +69,6 @@ app.post('/poll', (req, res) => {
 		}
 	})
 
-	// console.log(req.body)
 	console.log('devices', global.deviceList);
 	//populate deviceList array
 	//check if device is on list
@@ -86,6 +81,8 @@ app.post('/poll', (req, res) => {
 
 let changes = 0; //counter for how many changes there are
 
+// iterates through the list of devices after it receives an image url
+// sends it to the next available device (last changed)
 app.post('/control', (req, res) => {
 	let deviceIdx = changes%(global.deviceList.length);
 	global.deviceList[deviceIdx]['content'] = req.body.url;
