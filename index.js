@@ -50,7 +50,18 @@ app.get('/device', (req, res) => {
 app.post('/deviceRegistration', (req, res) =>{
 	var deviceId = req.body["deviceId"]
 	var content = "https://pathways-imgserver.herokuapp.com/source/ddds.jpg"
-	global.deviceList.push({"id":deviceId,"content":content})
+  var deviceAlreadyExists = false;
+  global.deviceList.forEach(function(element, index, theArray) {
+		if(element['id'].localeCompare(deviceId)==0) {
+      deviceAlreadyExists = true;
+		}
+	});
+  if (!deviceAlreadyExists) {
+    global.deviceList.push({"id":deviceId,"content":content});
+  }
+
+
+  console.log(deviceList)
 	res.sendStatus(200)
 });
 
@@ -62,14 +73,14 @@ app.post('/poll', (req, res) => {
 	var requestingDeviceId = req.body["deviceId"]
 
 	global.deviceList.forEach(function(element, index, theArray) {
-		// console.log(element)
+		console.log(element)
 		if(element['id'].localeCompare(requestingDeviceId)==0) {
 			res.send(element['content'])
 			return
 		}
 	})
 
-	console.log('devices', global.deviceList);
+	// console.log('devices', global.deviceList);
 	//populate deviceList array
 	//check if device is on list
 	//if not on list add it
@@ -84,9 +95,11 @@ let changes = 0; //counter for how many changes there are
 // iterates through the list of devices after it receives an image url
 // sends it to the next available device (last changed)
 app.post('/control', (req, res) => {
-	let deviceIdx = changes%(global.deviceList.length);
-	global.deviceList[deviceIdx]['content'] = req.body.url;
-	changes++;
+  if (global.deviceList.length > 0) {
+  	let deviceIdx = changes%(global.deviceList.length);
+  	global.deviceList[deviceIdx]['content'] = req.body.url;
+  	changes++;
+  }
 	res.sendStatus(200)
 });
 

@@ -1,9 +1,9 @@
 link(href='/designdaydreams.css', rel='stylesheet')
-img(src="https://pathways-imgserver.herokuapp.com/source/ddds.jpg",id="content")
+img(src="/source/ddds.jpg",id="content")
 script(type='text/javascript').
 	function poll(){
 		const Http=new XMLHttpRequest();
-		const url='https://pathways-imgserver.herokuapp.com/poll';
+		const url='/poll';
 		Http.open('POST',url);
 		Http.setRequestHeader('Content-Type', 'application/json');
 		Http.send(JSON.stringify({'deviceId':window.deviceId}));
@@ -22,7 +22,7 @@ script(type='text/javascript').
 			};
 		};
 	};
-	
+
 	function deviceIdGenerator() {
 		return Math.random().toString(36).substr(2,16);
 	};
@@ -56,7 +56,7 @@ script(type='text/javascript').
 	}
 
 	var Http=new XMLHttpRequest();
-	var url='https://pathways-imgserver.herokuapp.com/deviceRegistration';
+	var url='/deviceRegistration';
 	Http.open('POST',url);
 	Http.setRequestHeader('Content-Type', 'application/json');
 	Http.send(JSON.stringify({'deviceId':window.deviceId}));
