@@ -6,6 +6,10 @@ const app = express()
 const fs = require('fs')
 const bodyParser = require('body-parser')
 const IP = require('ip')
+// const http = require('http').Server(app);
+// const io = require('socket.io')(http);
+
+let DEVICE_TIMEOUT_SECS = 120;
 
 app.use(logger('dev'))
 app.use(express.static(__dirname + '/'))
@@ -57,7 +61,7 @@ app.post('/deviceRegistration', (req, res) =>{
 		}
 	});
   if (!deviceAlreadyExists) {
-    global.deviceList.push({"id":deviceId,"content":content});
+    global.deviceList.push({"id":deviceId,"content":content,"lastActive":Date.now()});
   }
 
 
@@ -73,9 +77,10 @@ app.post('/poll', (req, res) => {
 	var requestingDeviceId = req.body["deviceId"]
 
 	global.deviceList.forEach(function(element, index, theArray) {
-		console.log(element)
+		// console.log(element)
 		if(element['id'].localeCompare(requestingDeviceId)==0) {
-			res.send(element['content'])
+      element['lastActive']=Date.now();
+			res.send(element['content']);
 			return
 		}
 	})
@@ -95,6 +100,13 @@ let changes = 0; //counter for how many changes there are
 // iterates through the list of devices after it receives an image url
 // sends it to the next available device (last changed)
 app.post('/control', (req, res) => {
+  // remove timed out deviceList
+  let oldLength = global.deviceList.length;
+  global.deviceList = global.deviceList.filter( (device) =>
+    (Date.now() - device['lastActive']) < (DEVICE_TIMEOUT_SECS*1000)
+  );
+  console.log('removed '+(oldLength - global.deviceList.length)+' devices');
+
   if (global.deviceList.length > 0) {
   	let deviceIdx = changes%(global.deviceList.length);
   	global.deviceList[deviceIdx]['content'] = req.body.url;

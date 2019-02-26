@@ -15,7 +15,8 @@
     "file-system": "^2.2.2",
     "ip": "^1.1.5",
     "morgan": "^1.9.0",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "socket.io": "^2.2.0"
   },
   "proxy": "https://pathways-imgserver.herokuapp.com/"
 }
