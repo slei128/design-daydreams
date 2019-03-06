@@ -36,7 +36,7 @@ app.post('/control', (req, res) => {
   let nextClient = room.clients[ room.nextClientNr ];
   nextClient.currentContent = req.body.url;
   nextClient.socket.emit('displayImage', {'url': req.body.url});
-  
+
   room.nextClientNr ++;
   if (room.nextClientNr >= room.clients.length) {
     room.nextClientNr = 0;
@@ -53,6 +53,7 @@ http.listen(process.env.PORT || 5000, "0.0.0.0", () => {
 //runs when socket connection is established ie catches connected device
 io.on('connection', (socket)=> {
   let roomid = socket.handshake.query.room;
+  let isHost = !!socket.handshake.query.isHost;
   socket.join(roomid);
 
   if (!(roomid in rooms)) {
@@ -67,11 +68,24 @@ io.on('connection', (socket)=> {
   let client = {
     socket: socket,
     clientID: socket.id,
-    currentContent: null
+    currentContent: null,
+    isHost: isHost
   }
   console.log('client '+client.clientID+' joined room id ' + roomid);
-
+  if (client.isHost) {
+    console.log('Client '+client.clientID+' is host!');
+  }
   room.clients.push(client);
+
+  // tell everyone about this new user
+  console.log(room.clients);
+  io.in(roomid).emit('clientsChange',
+    room.clients.filter((c) => (!c.isHost)).map((c) => ({
+      clientID: c.clientID
+    }))
+  );
+
+  // bind socket events
 
   socket.on('disconnect', () => { // disconnect is a special keyword
     console.log("a client disconnected: "+client.clientID);
@@ -82,4 +96,24 @@ io.on('connection', (socket)=> {
       room.nextClientNr = 0;
     }
   });
+
+  socket.on('castImageToDevice', (data) => {
+    console.log('castImageToDevice', data);
+    let destinationClient = room.clients.filter(
+      (c) => (c.clientID == data.device)
+    )[0];
+    if (!destinationClient) {
+      console.log('tried to emit to client that doesnt exist!');
+    } else {
+      destinationClient.socket.emit('displayImage', {'url': data.url});
+    }
+  });
+
+  socket.on('flashDeviceSymbols', () => {
+    var i = 1;
+    room.clients.forEach(client => {
+      client.socket.emit('flashSymbol', i);
+      if (!client.isHost) i++;
+    });
+  })
 });

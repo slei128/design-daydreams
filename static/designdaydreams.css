@@ -3,7 +3,7 @@ body {
    	background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Exo', Georgia, serif;
-	font-size: 16px;  
+	font-size: 16px;
 }
 
 #home-button {
@@ -16,6 +16,20 @@ body {
     opacity:0.5;
 }
 
+#flash {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	font-size: 60vh;
+	line-height: 100vh;
+	text-align: center;
+	background-color: rgba(255,0,0,.5);
+	color: white;
+	font-weight: bold;
+	display: none;
+}
 .main {
 	font-family: 'Lora', Georgia, serif;
 	/*font-size: 40px;*/

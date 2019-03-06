@@ -8,6 +8,14 @@ var socket = io({query:{room: "abc"}});
 socket.on('displayImage', function(data) {
   displayImage(data.url);
 });
+socket.on('flashSymbol', function(data) {
+  var el = document.getElementById('flash');
+  el.innerHTML = data;
+  el.style.display = 'block';
+  setTimeout(() => {
+    el.style.display = 'none';
+  }, 2000);
+});
 
 function displayImage(imageURL) {
   var img = document.getElementById('content');
