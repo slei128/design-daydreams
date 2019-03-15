@@ -115,5 +115,11 @@ io.on('connection', (socket)=> {
       client.socket.emit('flashSymbol', i);
       if (!client.isHost) i++;
     });
-  })
+  });
+
+  socket.on('inputFromDevice', (data) => {
+    // data = e.g. {'type': 'tap'}, let's add a 'from' property
+    data['from'] = client.clientID;
+    io.in(roomid).emit('inputFromDevice', data);
+  });
 });
