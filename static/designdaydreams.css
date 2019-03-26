@@ -18,29 +18,46 @@ body {
 
 #flash {
 	position: fixed;
+	-webkit-animation: slide-right 2.5s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
 	top: 0;
 	right: 0;
-	left: 0;
+	left: -185vw;
 	bottom: 0;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 60vh;
 	line-height: 100vh;
 	text-align: center;
-	background-color: rgba(255,0,0,.5);
-	color: white;
+	background-color: rgba(0, 0, 0, 0.5);
 	font-weight: bold;
 	display: none;
 }
+
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+	50% {
+		-webkit-transform: translateX(80vw);
+            transform: translateX(80vw);
+	}
+  100% {
+		-webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
 .main {
 	font-family: 'Lora', Georgia, serif;
 	/*font-size: 40px;*/
-    font-size:3vw;
+  font-size:3vw;
 	color: #FFF;
 	position: absolute;
 	left:0;
 	bottom: 0;
 	right: 0;
-    top: 28vh;
-    /*top: 300px;*/
+  top: 28vh;
+  /*top: 300px;*/
 }
 
 .column_left {

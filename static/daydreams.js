@@ -12,7 +12,9 @@ socket.on('displayImage', function(data) {
 socket.on('flashSymbol', function(data) {
   var el = document.getElementById('flash');
   el.innerHTML = data;
+  var colors = ['#C36CCB','#82CB9A','#2E93F7','#FEFE52'];
   el.style.display = 'block';
+  el.style.color= colors[Math.floor(Math.random()*4)];
   setTimeout(() => {
     el.style.display = 'none';
   }, 2000);

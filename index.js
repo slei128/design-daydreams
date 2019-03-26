@@ -112,7 +112,7 @@ io.on('connection', (socket)=> {
   socket.on('flashDeviceSymbols', () => {
     var i = 1;
     room.clients.forEach(client => {
-      client.socket.emit('flashSymbol', i);
+      client.socket.emit('flashSymbol', i); //i is the "data" caught by client/device
       if (!client.isHost) i++;
     });
   });
