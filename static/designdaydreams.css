@@ -18,9 +18,9 @@ body {
 }
 
 #flash {
-	animation-name: slide-right;
-	animation-duration: 4s;
-  animation-fill-mode: forwards;
+	-webkit-animation: slide-right 15s ease;
+	/* animation-duration: 4s;
+  animation-fill-mode: forwards; */
 
 	position: fixed;
 	top: 0;
